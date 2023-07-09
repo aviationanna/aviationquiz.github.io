@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MCQ Quiz</title>
+  <style>
+    .question {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Login</h1>
+  <form id="loginForm">
+    <label for="username">Username:</label>
+    <input type="text" id="username" required><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" required><br>
+    <button type="submit">Login</button>
+  </form>
+
+  <div id="quizContainer" style="display: none;">
+    <h1>MCQ Quiz</h1>
+    <form id="quizForm">
+      <div class="question">
+        <h3>Question 1: What is the capital of France?</h3>
+        <label><input type="radio" name="q1" value="a">a) Paris</label><br>
+        <label><input type="radio" name="q1" value="b">b) Rome</label><br>
+        <label><input type="radio" name="q1" value="c">c) Madrid</label><br>
+      </div>
+      <div class="question">
+        <h3>Question 2: What is the largest planet in our solar system?</h3>
+        <label><input type="radio" name="q2" value="a">a) Jupiter</label><br>
+        <label><input type="radio" name="q2" value="b">b) Saturn</label><br>
+        <label><input type="radio" name="q2" value="c">c) Earth</label><br>
+      </div>
+      <!-- Add more questions here -->
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <div id="resultContainer" style="display: none;">
+    <h1>Quiz Results</h1>
+    <div id="score"></div>
+    <div id="answers"></div>
+  </div>
+
+  <script>
+    // Questions and their correct answers
+    const questions = [
+      { question: "What is the capital of France?", answer: "a" },
+      { question: "What is the largest planet in our solar system?", answer: "a" },
+      // Add more questions here
+    ];
+
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const username = document.getElementById("santosh").value;
+      const password = document.getElementById("mcq").value;
+
+      // Perform login authentication here
+      // Example: Check if username and password match
+
+      // If authentication is successful, show the quiz
+      document.getElementById("loginForm").style.display = "none";
+      document.getElementById("quizContainer").style.display = "block";
+    });
+
+    document.getElementById("quizForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      let score = 0;
+      let answersHTML = "";
+
+      // Loop through each question and check the selected answer
+      for (let i = 0; i < questions.length; i++) {
+        const question = questions[i];
+        const selectedAnswer = document.querySelector(`input[name="q${i+1}"]:checked`);
+        if (selectedAnswer && selectedAnswer.value === question.answer) {
+          score++;
+          answersHTML += `<p>Question ${i+1}: <strong>Correct</strong></p>`;
+        } else {
+          answersHTML += `<p>Question ${i+1}: <strong>Incorrect</strong></p>`;
+        }
+      }
+
+      // Display the score and answers
+      document.getElementById("quizContainer").style.display = "none";
+      document.getElementById("resultContainer").style.display = "block";
+      document.getElementById("score").innerHTML = `Score: ${score}/${questions.length}`;
+      document.getElementById("answers").innerHTML = answersHTML;
+    });
+  </script>
+</body>
+</html>
